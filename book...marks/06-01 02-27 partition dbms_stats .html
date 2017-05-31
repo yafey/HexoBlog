@@ -1,0 +1,668 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans,default,default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/HexoBlog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/HexoBlog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/HexoBlog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/HexoBlog/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Bookmarks 书签菜单       06-01 02:27                   partition table 未进行 dbms                  [Oracle] 统计信息和dbms                  dbms                  老熊的三分地-Oracle及数据恢复                  表分析——DBMS">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Y.a.F.e.Y Blog">
+<meta property="og:url" content="https://yafey.github.io/book...marks/06-01 02-27 partition dbms_stats .html">
+<meta property="og:site_name" content="Y.a.F.e.Y Blog">
+<meta property="og:description" content="Bookmarks 书签菜单       06-01 02:27                   partition table 未进行 dbms                  [Oracle] 统计信息和dbms                  dbms                  老熊的三分地-Oracle及数据恢复                  表分析——DBMS">
+<meta property="og:updated_time" content="2017-05-31T18:29:24.662Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Y.a.F.e.Y Blog">
+<meta name="twitter:description" content="Bookmarks 书签菜单       06-01 02:27                   partition table 未进行 dbms                  [Oracle] 统计信息和dbms                  dbms                  老熊的三分地-Oracle及数据恢复                  表分析——DBMS">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/HexoBlog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true,"Title":"http://example.com/"},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '3L117C36K2',
+      apiKey: '8b56d772bc43d9ee2c54cd610a58ba5d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yafey.github.io/book...marks/06-01 02-27 partition dbms_stats .html"/>
+
+
+
+
+
+  <title> | Y.a.F.e.Y Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/HexoBlog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Y.a.F.e.Y Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/HexoBlog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/HexoBlog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/HexoBlog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/HexoBlog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/HexoBlog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+  <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline"></h1>
+
+
+
+</header>
+
+    
+    
+      <!DOCTYPE NETSCAPE-Bookmark-file-1>
+<!-- This is an automatically generated file.
+	It will be read and overwritten.
+	DO NOT EDIT! -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Bookmarks</title>
+<h1>书签菜单</h1>
+
+<dl><p>
+    <dt><h3>06-01 02:27</h3>
+    <dd>
+    <dl><p>
+        <dt><a href="http://cn.bing.com/search?q=partition+table+%E6%9C%AA%E8%BF%9B%E8%A1%8C+dbms_stats.gather_table_stats+%E4%BC%9A%E5%BD%B1%E5%93%8D+%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%90%97&amp;qs=n&amp;form=QBRE&amp;sp=-1&amp;pq=partition+table+%E6%9C%AA%E8%BF%9B%E8%A1%8C+dbms_stats.gather_table_stats+%E4%BC%9A%E5%BD%B1%E5%93%8D+%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E5%90%97&amp;sc=0-59&amp;sk=&amp;cvid=76061CA276574B429DD737E53982E2DC" icon_uri="http://cn.bing.com/sa/simg/bing_p_rr_teal_min.ico" icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFNSURBVFhH7ZYvDsIwFIc5ALfgBByBM3AAbsAVMPMIBBJFgkKQYOdJUCgwuDkUKFTJB2tYmq577TogYb/kl2309fWjf97W6SaJ+qZbgFKA3nSqJmmqRuv1894WE8NOgNPlohDX2W6nhquVNbaORQBaPMeeDS+A7HptAVqA3wDA/fnc2s/XQQAMnp7PanM8qvF2WwsmeAmWh0P+66s+8AyMbpc6GICqeLvf85a36KOrpgQmGIAry+AS/XmfmLmLDgbAJK8SOYp9TNcC4B4IM66oRgGKsYDQbuojAGy4sv3QKADnnx1v++daUQF0Mly19ggwAG35tb1ngIGrjh8iRvIF5QUgEX18KmI0AGKZbunA2k6AfZbl6ctFOeY9MFgsrHmqXAqASUpyW81H0nV22QmgbZ5zppvN6DvdNosAMIOxuVjnWB8jWAzQlP8dIFEPVxH9th4qW08AAAAASUVORK5CYII=" target="_blank" rel="external">partition table 未进行 dbms</a>
+        <dd>
+        <dt><a href="http://blog.csdn.net/dbanote/article/details/8930259" icon_uri="http://c.csdnimg.cn/public/favicon.ico" icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEs0lEQVRYhe2XXYhUZRjHnzOzsx+zszOra17khR83bbTdJCRCNykFFWVliFiCFxJKUokEXkQRIRWBXeiFCYkIKrmiEkQfUFBEhc45Z9V10rbZ1U1XXddZNXdn5sx5318X75mP3Z2ZXcmIooEHhjnvvM///b/P//88R1xp458M+R/AnSx2JDbxNyuOG0rghttxG9pxG2ZViXbzPJTAteI4Epuwz4wBlP4Ubg82asWWJpISIinCiTqRFCEpIWxpwp10iGkAVCwOteNIjKQItjTgRhKcWfgg/SvXcmnr2wzv/JjMgW5GDx9j9PAxMt1HGNm7n6sf7eTiG2/S//waehd23RkDjsQMddLGCREcK07fo09x5f3tjPemULkcmpl/8kNXcJvn4Ei0PgCnIrktDTjSQv+addz6/sepu2qN9hW6UEB73qQooAsFlFdAa81YzynccDt2PQAleqwESRFSnYu58flX5XwqSKYU2vfNd12fBxUAyRz5DEdaZ3AFoThJEdIrVuENXzObBMnQGq012vcnEuErVC6HGh83kc0ZFirWXNu9B1siuBKvDsCRGE5w8vSzq/GzOZO84pTa90ubjp9OMbJ7D+fXbeDc0uX0LniAU3MWcKpjPr3z7iPV9TB9j63gwvpXGNm7n4HV60hKA45VVQUxXCtOUhpIdS2hMHqjlBxAA1qZ1N616wxueJWTs+8NZGZhSwRbmnCkJYhmbGnElnBJpkaG8epX4EgbjhXDaYxy84uvJ5xca41SCq01+UtDpBYv5bgIjrQYswlMxrXK1LpWhVGFEsaQrPgUMyszEDLU9y1/BlWsYKUMEKVM0WlN+ulVnBAxia34FGOZiYPWZMCWCMM7dpUrFyYU3O2fj5sqtoJ6uZu9wJZWnFA7Y87JctJi4QVXcfndD4wLVlJ9twA4EsVtvqdUfEXKAXTeA2Dw5ddIiuCEE38HgBZ6onNRY2OBwekyAM9Da83gpi0kLQs3lLgr9E+6gihupIPcwAWTXKnyFQQ1kDnYTVIaTEesUlx/kYEYjrSQ+fSIkV2hXIRFCapslrNLlhkVVPT4mgkqZDi5C9aUYf/KtSZZ3ivJsMiIBnLpfvqWPRn0eMGWRhyJBh5fjCiOtGBLYzAHhGpe2SQjasVpbuPml98YKea9CY2meBUqnydz6CgDa9eT6nyInuhc3MbZxhsis3GbOjgZn8eZzsX0v/AS/StfxJ2WAYnhShxbIvQuvJ9sX7rshhWNp8hKqdPlPQqZUXLpAbKpX8ie/ZX80GX822P441kAru87ENh0HQZKRRX0g95FXfzxw0/lRJ5XKsxSS56mDWvfR2vN0DvvkZRw1XqpPg9Yhgm3qYNLb20jf35w6uZKoQu+sWzPQ+c9VD6Pzgc27vuoXN74x8bXzUQVmuofNSaiGK6VwJFWkiL0zu/k901buPXtd/i3x9B3MIhppUivWM1xEdwqBlYTQOUUbEvEOKC0cnruIn574jkubt7K1e07GNl3kEz3UTLdR80wuv8Qw7s+4fK2DxncuJlzjzxOT2MHjrTWV0FNJgKJuuGilpsn9PjpxnEzUxaT11XBDIBUeEb9l5FZ5nm4bFS1XPPf9Wr2nwTwJxgLfgbjbBChAAAAAElFTkSuQmCC" target="_blank" rel="external">[Oracle] 统计信息和dbms</a>
+        <dd>
+        <dt><a href="http://www.itpub.net/thread-1455425-1-1.html" icon_uri="http://www.itpub.net/favicon.ico" icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADpElEQVRYhcWXTU/bShSGZ6wknjHYcRRIgACq1FX7t1oRpVW4dgONjVGdmhuq/qFuS1pViZBqQ75aJSk0aSndsLo/4L0L5xNC05RAF+9m5POeR545c+YQQl60CHEuCLHvWM6Fn5vY/xGyD0L27lj78HMT+8JfyHX1p4a5S5r03R783EMAlNoIhw1EIlmo6u9LUQxQavfNKc1d8ZGkLBgb/u4KwB7CYQOFQgTVKofrTtbHjxIOD+fx5s0SZNnEwMfs+xwfcxSLEnZ25pFMxsGYMfQ3LgGoahaVSgg/fxJ0OpP19StBrUbx9m0YijIwVlWj73N2RtBoEOTzFLoug/PfADg/J2i3r0/cbvvJ63WKV6/m8OxZHIyZIwCuy9HpEJye+pCOE8DmpvprgNEtkK6V53F8+UJRrVLY9hyePJkJQA6CYGN5WUcioXUPkDFGFtbWdHz4EIbnBZHLzSOdnhEApTZE0UIoZIEQ59r6ZczCu3fq7QBwboHzcQCD+lUUA+/f+wB7exyattAF+BeE7GNuzvrzLYhGdUSjGjj369aXCUptUDoK4LohmGYUGxvrYMyEIDhQFAvr6xo8j01/CBkzkEzGoesy0ukI0ukINE1BMrmEaFQHY1YfoFSScXg4j3jcXxfFXays6Dg4iKBS4Wg2KVqtKQEkyYBpysjnBThOAI4TQD5PsbMjIxbTulvjAxwcyCgUFEiSBULyEMVdrK1pqFSC+PGDoNUi0wOoahbFooRm0w+q1SgaDYJSSUIioUEUd0GIA8ZMbG9H8Py52t17B6K4i9VVDa7L0G7fAODoiOPszA88PSX4/p3g6IhjdXUAEAqZePQogcePVxAKzRigd3p7Bu02getyLC9nEAgMGo4omhBFc6h8bxHA8xju309BUbYgCC/61TB6f9wSQM/AsvxutrCgg3PrUvu9A4B8XoCuD6rhzgFyuSCePlWxuDgeQBBsxOOZ2wGo1ylevw5iezs8FkAQbCwubuHhwxQ8b8YAPTWbBMUiRyyW6Sbv9Yp9cG6hUIigVmP9G3DmAN++EZTLIh48SCEW2xpq1xbu3fsH1WoQ5+dX4258EQ3r5ISgXGY4PuZDklAuc5ycjI/pdAg+fZoCoFTiI1fxsOp1/33XbI6q0SCo18fHfP5M4XlTNyPab0az0MuXAdi2gExmwqOUMRMbG0vQNBmbm+pMlcnISKV++Sz365kxA5xnwbkxY00cTG46mk07wg0A/vZw+nfH8/8BzKmPw5GnLUoAAAAASUVORK5CYII=" target="_blank" rel="external">dbms</a>
+        <dd>
+        <dt><a href="http://www.laoxiong.net/dbms_stats_and_analyze_and_global_statistics.html" icon_uri="http://www.laoxiong.net/wp-content/themes/coogee/images/favicon.ico" icon="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8zfIAZKD6AGed8wDc5fgAXZv9AE6M+ABNivcAYJ/9AH2n7wB8pe4AyNX1AGOh/QBZmP0AWJb8ALvM8gBlofwAZKH7AGee9ACKrOwAW5r8AF+e/QCowPAAYpv2AFKR+gBioP0AZp/3AKC77wBWlfsAVZP6AHSf7gBkovwAvc3yAF2d/ADS3vcAe6XvAFGQ+gBQjvkAcZ7vAGGf/QC4yvEAZKH9AGub8ADY4vcAXpn3AFmY/AC8zPIAzNn1AGSf+gBnnvMAXZz9AP3+/wDg6PkATIn2AGCg/QBgnv0AX578AGic8QC4y/IAU5H6AGOg/QBnn/cAoLvuAFiX/AC7zfIAVpX6AOju+wBcm/0AW5n8AF+f/QBfnf0A////AGKf/QBXlvwAVZT6AOft+wBlof0AZKH8AFua/QBamPwAeKTvAPv8/wBenP0Ap77wAGaa8QBRj/oATov3AGaf+ABhoP0AZZ/3AGSd9gDy9f0AVpX8AFST+gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFDVXGAsLWAICAjARTBAQAUVEB1dHIi4DAwMDKk8PEBAxRURXWSFGRkZGRkY9TA8QQjFFRDhaRkYzHx8fJ1ZMD0NCMUVTSkZGEihMEDwPHg8sQ0IxFiFGRho7KEwoKEtMSCxDQjFSRkYhWQsoTCgoKEA+ThNCHVBGMgkYCyhMKEtcQA1OEysKRkYzPwAAHwgoFxxAPk4TJUFGRkZGRkY5L1Q6HBs+TkMpUg4/LT8AFRkkVDocGz5OTQQxNwcmGDsLBSRUOhwbSE5NQlE3ByYYGFUFJCM6SRs+Tk0EMTcHJhgGVQUkIzpJWz4sTQQxFDZXNAZVBSQjOklbPgxNQiAUNgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" target="_blank" rel="external">老熊的三分地-Oracle及数据恢复</a>
+        <dd>
+        <dt><a href="http://blog.sina.com.cn/s/blog_4b05c12a0100qm8u.html" icon_uri="http://blog.sina.com.cn/favicon.ico" icon="data:image/x-icon;base64,AAABAAEAICAQAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD//wD/AAAA/wD/AP//AAD///8AgRAiIiEzMzIiIAAAAAABEYmQqqogM7u7qqAERERAd3GJkKqqIDO7u6qgBEREQHeBiZCqqiAzu7uqoAREREB3gYmQqqogM7u7qqAERERAd4GJkKqqIBO7u6qgREREQHeBgACqqiADu7uqoABEREAXcYkAqqogAzu7qqAARERAEXGJECqqIAM7s6ogBEREQBFxiZECqqIAMzqiAEREREAREfu5ECqqoqqqoARERERAEZGLuZECqqqqqgBEREREQAARi7mZECqqqqAEREREREAAmYu5mZECqqogRERERERACZmLmZmZACqiAEREREREABmZiZmZmZAKIAREREREQAd5mYmZmZmZAAAEREREREB3iJmJmZmZmZAJAEREREQAd4iZiZmZm5mZmZAERERAR3eIiYmZmbu5mZmZAEREBHd4iImJmZu7uZmZmZAEQAd3iIeZiZu7u7mZmZmZBACZmZmZmYm7u7u5mZmZmZAJmZmZmZmLu7u7uZmZmZmZmZmZmZmZi7u7u7mZmbu5mZmZmZmZmYu7u7uZmZu7u5mZmZmZmZmLu7u7mZmbu7uZmZmZmZmTi7u7u5mZu7u5mZmbuZmZs4u7u7uZmbu7uZmZm7uZmZOLu7u7mZm7u7mZmbu7mZmTi7u7u5mZu7u5mZm7u5mZk/u7u7uZm7u7u5mbu7u5mZMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==" target="_blank" rel="external">表分析——DBMS</a>
+        <dd>
+        <dt><a href="http://blog.csdn.net/jackpk/article/details/5984565" icon_uri="http://c.csdnimg.cn/public/favicon.ico" icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEs0lEQVRYhe2XXYhUZRjHnzOzsx+zszOra17khR83bbTdJCRCNykFFWVliFiCFxJKUokEXkQRIRWBXeiFCYkIKrmiEkQfUFBEhc45Z9V10rbZ1U1XXddZNXdn5sx5318X75mP3Z2ZXcmIooEHhjnvvM///b/P//88R1xp458M+R/AnSx2JDbxNyuOG0rghttxG9pxG2ZViXbzPJTAteI4Epuwz4wBlP4Ubg82asWWJpISIinCiTqRFCEpIWxpwp10iGkAVCwOteNIjKQItjTgRhKcWfgg/SvXcmnr2wzv/JjMgW5GDx9j9PAxMt1HGNm7n6sf7eTiG2/S//waehd23RkDjsQMddLGCREcK07fo09x5f3tjPemULkcmpl/8kNXcJvn4Ei0PgCnIrktDTjSQv+addz6/sepu2qN9hW6UEB73qQooAsFlFdAa81YzynccDt2PQAleqwESRFSnYu58flX5XwqSKYU2vfNd12fBxUAyRz5DEdaZ3AFoThJEdIrVuENXzObBMnQGq012vcnEuErVC6HGh83kc0ZFirWXNu9B1siuBKvDsCRGE5w8vSzq/GzOZO84pTa90ubjp9OMbJ7D+fXbeDc0uX0LniAU3MWcKpjPr3z7iPV9TB9j63gwvpXGNm7n4HV60hKA45VVQUxXCtOUhpIdS2hMHqjlBxAA1qZ1N616wxueJWTs+8NZGZhSwRbmnCkJYhmbGnElnBJpkaG8epX4EgbjhXDaYxy84uvJ5xca41SCq01+UtDpBYv5bgIjrQYswlMxrXK1LpWhVGFEsaQrPgUMyszEDLU9y1/BlWsYKUMEKVM0WlN+ulVnBAxia34FGOZiYPWZMCWCMM7dpUrFyYU3O2fj5sqtoJ6uZu9wJZWnFA7Y87JctJi4QVXcfndD4wLVlJ9twA4EsVtvqdUfEXKAXTeA2Dw5ddIiuCEE38HgBZ6onNRY2OBwekyAM9Da83gpi0kLQs3lLgr9E+6gihupIPcwAWTXKnyFQQ1kDnYTVIaTEesUlx/kYEYjrSQ+fSIkV2hXIRFCapslrNLlhkVVPT4mgkqZDi5C9aUYf/KtSZZ3ivJsMiIBnLpfvqWPRn0eMGWRhyJBh5fjCiOtGBLYzAHhGpe2SQjasVpbuPml98YKea9CY2meBUqnydz6CgDa9eT6nyInuhc3MbZxhsis3GbOjgZn8eZzsX0v/AS/StfxJ2WAYnhShxbIvQuvJ9sX7rshhWNp8hKqdPlPQqZUXLpAbKpX8ie/ZX80GX822P441kAru87ENh0HQZKRRX0g95FXfzxw0/lRJ5XKsxSS56mDWvfR2vN0DvvkZRw1XqpPg9Yhgm3qYNLb20jf35w6uZKoQu+sWzPQ+c9VD6Pzgc27vuoXN74x8bXzUQVmuofNSaiGK6VwJFWkiL0zu/k901buPXtd/i3x9B3MIhppUivWM1xEdwqBlYTQOUUbEvEOKC0cnruIn574jkubt7K1e07GNl3kEz3UTLdR80wuv8Qw7s+4fK2DxncuJlzjzxOT2MHjrTWV0FNJgKJuuGilpsn9PjpxnEzUxaT11XBDIBUeEb9l5FZ5nm4bFS1XPPf9Wr2nwTwJxgLfgbjbBChAAAAAElFTkSuQmCC" target="_blank" rel="external">oracle 表分析,CBO RBO 详解</a>
+        <dd>
+        <dt><a href="http://blog.csdn.net/cnham/article/details/5482318" icon_uri="http://c.csdnimg.cn/public/favicon.ico" icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEs0lEQVRYhe2XXYhUZRjHnzOzsx+zszOra17khR83bbTdJCRCNykFFWVliFiCFxJKUokEXkQRIRWBXeiFCYkIKrmiEkQfUFBEhc45Z9V10rbZ1U1XXddZNXdn5sx5318X75mP3Z2ZXcmIooEHhjnvvM///b/P//88R1xp458M+R/AnSx2JDbxNyuOG0rghttxG9pxG2ZViXbzPJTAteI4Epuwz4wBlP4Ubg82asWWJpISIinCiTqRFCEpIWxpwp10iGkAVCwOteNIjKQItjTgRhKcWfgg/SvXcmnr2wzv/JjMgW5GDx9j9PAxMt1HGNm7n6sf7eTiG2/S//waehd23RkDjsQMddLGCREcK07fo09x5f3tjPemULkcmpl/8kNXcJvn4Ei0PgCnIrktDTjSQv+addz6/sepu2qN9hW6UEB73qQooAsFlFdAa81YzynccDt2PQAleqwESRFSnYu58flX5XwqSKYU2vfNd12fBxUAyRz5DEdaZ3AFoThJEdIrVuENXzObBMnQGq012vcnEuErVC6HGh83kc0ZFirWXNu9B1siuBKvDsCRGE5w8vSzq/GzOZO84pTa90ubjp9OMbJ7D+fXbeDc0uX0LniAU3MWcKpjPr3z7iPV9TB9j63gwvpXGNm7n4HV60hKA45VVQUxXCtOUhpIdS2hMHqjlBxAA1qZ1N616wxueJWTs+8NZGZhSwRbmnCkJYhmbGnElnBJpkaG8epX4EgbjhXDaYxy84uvJ5xca41SCq01+UtDpBYv5bgIjrQYswlMxrXK1LpWhVGFEsaQrPgUMyszEDLU9y1/BlWsYKUMEKVM0WlN+ulVnBAxia34FGOZiYPWZMCWCMM7dpUrFyYU3O2fj5sqtoJ6uZu9wJZWnFA7Y87JctJi4QVXcfndD4wLVlJ9twA4EsVtvqdUfEXKAXTeA2Dw5ddIiuCEE38HgBZ6onNRY2OBwekyAM9Da83gpi0kLQs3lLgr9E+6gihupIPcwAWTXKnyFQQ1kDnYTVIaTEesUlx/kYEYjrSQ+fSIkV2hXIRFCapslrNLlhkVVPT4mgkqZDi5C9aUYf/KtSZZ3ivJsMiIBnLpfvqWPRn0eMGWRhyJBh5fjCiOtGBLYzAHhGpe2SQjasVpbuPml98YKea9CY2meBUqnydz6CgDa9eT6nyInuhc3MbZxhsis3GbOjgZn8eZzsX0v/AS/StfxJ2WAYnhShxbIvQuvJ9sX7rshhWNp8hKqdPlPQqZUXLpAbKpX8ie/ZX80GX822P441kAru87ENh0HQZKRRX0g95FXfzxw0/lRJ5XKsxSS56mDWvfR2vN0DvvkZRw1XqpPg9Yhgm3qYNLb20jf35w6uZKoQu+sWzPQ+c9VD6Pzgc27vuoXN74x8bXzUQVmuofNSaiGK6VwJFWkiL0zu/k901buPXtd/i3x9B3MIhppUivWM1xEdwqBlYTQOUUbEvEOKC0cnruIn574jkubt7K1e07GNl3kEz3UTLdR80wuv8Qw7s+4fK2DxncuJlzjzxOT2MHjrTWV0FNJgKJuuGilpsn9PjpxnEzUxaT11XBDIBUeEb9l5FZ5nm4bFS1XPPf9Wr2nwTwJxgLfgbjbBChAAAAAElFTkSuQmCC" target="_blank" rel="external">ORACLE的CBO及表分析</a>
+        <dd>
+        <dt><a href="http://blog.csdn.net/cnham/article/details/6774981" icon_uri="http://c.csdnimg.cn/public/favicon.ico" icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEs0lEQVRYhe2XXYhUZRjHnzOzsx+zszOra17khR83bbTdJCRCNykFFWVliFiCFxJKUokEXkQRIRWBXeiFCYkIKrmiEkQfUFBEhc45Z9V10rbZ1U1XXddZNXdn5sx5318X75mP3Z2ZXcmIooEHhjnvvM///b/P//88R1xp458M+R/AnSx2JDbxNyuOG0rghttxG9pxG2ZViXbzPJTAteI4Epuwz4wBlP4Ubg82asWWJpISIinCiTqRFCEpIWxpwp10iGkAVCwOteNIjKQItjTgRhKcWfgg/SvXcmnr2wzv/JjMgW5GDx9j9PAxMt1HGNm7n6sf7eTiG2/S//waehd23RkDjsQMddLGCREcK07fo09x5f3tjPemULkcmpl/8kNXcJvn4Ei0PgCnIrktDTjSQv+addz6/sepu2qN9hW6UEB73qQooAsFlFdAa81YzynccDt2PQAleqwESRFSnYu58flX5XwqSKYU2vfNd12fBxUAyRz5DEdaZ3AFoThJEdIrVuENXzObBMnQGq012vcnEuErVC6HGh83kc0ZFirWXNu9B1siuBKvDsCRGE5w8vSzq/GzOZO84pTa90ubjp9OMbJ7D+fXbeDc0uX0LniAU3MWcKpjPr3z7iPV9TB9j63gwvpXGNm7n4HV60hKA45VVQUxXCtOUhpIdS2hMHqjlBxAA1qZ1N616wxueJWTs+8NZGZhSwRbmnCkJYhmbGnElnBJpkaG8epX4EgbjhXDaYxy84uvJ5xca41SCq01+UtDpBYv5bgIjrQYswlMxrXK1LpWhVGFEsaQrPgUMyszEDLU9y1/BlWsYKUMEKVM0WlN+ulVnBAxia34FGOZiYPWZMCWCMM7dpUrFyYU3O2fj5sqtoJ6uZu9wJZWnFA7Y87JctJi4QVXcfndD4wLVlJ9twA4EsVtvqdUfEXKAXTeA2Dw5ddIiuCEE38HgBZ6onNRY2OBwekyAM9Da83gpi0kLQs3lLgr9E+6gihupIPcwAWTXKnyFQQ1kDnYTVIaTEesUlx/kYEYjrSQ+fSIkV2hXIRFCapslrNLlhkVVPT4mgkqZDi5C9aUYf/KtSZZ3ivJsMiIBnLpfvqWPRn0eMGWRhyJBh5fjCiOtGBLYzAHhGpe2SQjasVpbuPml98YKea9CY2meBUqnydz6CgDa9eT6nyInuhc3MbZxhsis3GbOjgZn8eZzsX0v/AS/StfxJ2WAYnhShxbIvQuvJ9sX7rshhWNp8hKqdPlPQqZUXLpAbKpX8ie/ZX80GX822P441kAru87ENh0HQZKRRX0g95FXfzxw0/lRJ5XKsxSS56mDWvfR2vN0DvvkZRw1XqpPg9Yhgm3qYNLb20jf35w6uZKoQu+sWzPQ+c9VD6Pzgc27vuoXN74x8bXzUQVmuofNSaiGK6VwJFWkiL0zu/k901buPXtd/i3x9B3MIhppUivWM1xEdwqBlYTQOUUbEvEOKC0cnruIn574jkubt7K1e07GNl3kEz3UTLdR80wuv8Qw7s+4fK2DxncuJlzjzxOT2MHjrTWV0FNJgKJuuGilpsn9PjpxnEzUxaT11XBDIBUeEb9l5FZ5nm4bFS1XPPf9Wr2nwTwJxgLfgbjbBChAAAAAElFTkSuQmCC" target="_blank" rel="external">项目经理问：为什么总是只有我在加班 – 挂包袱现象</a>
+        <dd>
+        <dt><a href="http://blog.csdn.net/cnham/article/details/71403166" icon_uri="http://c.csdnimg.cn/public/favicon.ico" icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEs0lEQVRYhe2XXYhUZRjHnzOzsx+zszOra17khR83bbTdJCRCNykFFWVliFiCFxJKUokEXkQRIRWBXeiFCYkIKrmiEkQfUFBEhc45Z9V10rbZ1U1XXddZNXdn5sx5318X75mP3Z2ZXcmIooEHhjnvvM///b/P//88R1xp458M+R/AnSx2JDbxNyuOG0rghttxG9pxG2ZViXbzPJTAteI4Epuwz4wBlP4Ubg82asWWJpISIinCiTqRFCEpIWxpwp10iGkAVCwOteNIjKQItjTgRhKcWfgg/SvXcmnr2wzv/JjMgW5GDx9j9PAxMt1HGNm7n6sf7eTiG2/S//waehd23RkDjsQMddLGCREcK07fo09x5f3tjPemULkcmpl/8kNXcJvn4Ei0PgCnIrktDTjSQv+addz6/sepu2qN9hW6UEB73qQooAsFlFdAa81YzynccDt2PQAleqwESRFSnYu58flX5XwqSKYU2vfNd12fBxUAyRz5DEdaZ3AFoThJEdIrVuENXzObBMnQGq012vcnEuErVC6HGh83kc0ZFirWXNu9B1siuBKvDsCRGE5w8vSzq/GzOZO84pTa90ubjp9OMbJ7D+fXbeDc0uX0LniAU3MWcKpjPr3z7iPV9TB9j63gwvpXGNm7n4HV60hKA45VVQUxXCtOUhpIdS2hMHqjlBxAA1qZ1N616wxueJWTs+8NZGZhSwRbmnCkJYhmbGnElnBJpkaG8epX4EgbjhXDaYxy84uvJ5xca41SCq01+UtDpBYv5bgIjrQYswlMxrXK1LpWhVGFEsaQrPgUMyszEDLU9y1/BlWsYKUMEKVM0WlN+ulVnBAxia34FGOZiYPWZMCWCMM7dpUrFyYU3O2fj5sqtoJ6uZu9wJZWnFA7Y87JctJi4QVXcfndD4wLVlJ9twA4EsVtvqdUfEXKAXTeA2Dw5ddIiuCEE38HgBZ6onNRY2OBwekyAM9Da83gpi0kLQs3lLgr9E+6gihupIPcwAWTXKnyFQQ1kDnYTVIaTEesUlx/kYEYjrSQ+fSIkV2hXIRFCapslrNLlhkVVPT4mgkqZDi5C9aUYf/KtSZZ3ivJsMiIBnLpfvqWPRn0eMGWRhyJBh5fjCiOtGBLYzAHhGpe2SQjasVpbuPml98YKea9CY2meBUqnydz6CgDa9eT6nyInuhc3MbZxhsis3GbOjgZn8eZzsX0v/AS/StfxJ2WAYnhShxbIvQuvJ9sX7rshhWNp8hKqdPlPQqZUXLpAbKpX8ie/ZX80GX822P441kAru87ENh0HQZKRRX0g95FXfzxw0/lRJ5XKsxSS56mDWvfR2vN0DvvkZRw1XqpPg9Yhgm3qYNLb20jf35w6uZKoQu+sWzPQ+c9VD6Pzgc27vuoXN74x8bXzUQVmuofNSaiGK6VwJFWkiL0zu/k901buPXtd/i3x9B3MIhppUivWM1xEdwqBlYTQOUUbEvEOKC0cnruIn574jkubt7K1e07GNl3kEz3UTLdR80wuv8Qw7s+4fK2DxncuJlzjzxOT2MHjrTWV0FNJgKJuuGilpsn9PjpxnEzUxaT11XBDIBUeEb9l5FZ5nm4bFS1XPPf9Wr2nwTwJxgLfgbjbBChAAAAAElFTkSuQmCC" target="_blank" rel="external">目前国内几大著名报表软件（2014更新）</a>
+        <dd>
+        <dt><a href="http://love-love-l.blog.163.com/blog/static/21078304201010175035270/" icon_uri="http://love-love-l.blog.163.com/favicon.ico" icon="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAwMDAAICAgAAAAP8AAP8AAAD//wD/AAAA/wD/AP//AAD///8AAAAAAAAAAAAACZkACZkAAAAACZCQCZAAAJkACZAAmQAACZkAmQAJAAAAAJAAkAkAAJmQCZAJmQAAAAmQmZmQAAAAmZmZmQAAAAmZkACZkAAACZkJmZmQAAAJmQAAmZAAAAmZCZCZkAAAAJmQCZkAAAAACZmZkAAAAAAAAAAAAAD//w8P448PD/lnAADOcwAA4zsPD/3bDwDGYwAP+QcAAPAPDw/hxw8A4gcPAOPHAADiRw8P8Y8PAPgfDw///wAA" target="_blank" rel="external">oracle cbo rbo 详解</a>
+        <dd>
+        <dt><a href="http://www.blogjava.net/envoydada/archive/2009/02/07/253698.html" target="_blank" rel="external">ORACLE 中dbms</a>
+        <dd>
+        <dt><a href="https://blogs.oracle.com/optimizer/maintaining-statistics-on-large-partitioned-tables" target="_blank" rel="external">Maintaining statistics on large partitioned tables</a>
+        <dd>
+        <dt><a href="http://blog.itpub.net/26892340/viewspace-721935/" icon_uri="http://blog.itpub.net/favicon.ico" icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADpElEQVRYhcWXTU/bShSGZ6wknjHYcRRIgACq1FX7t1oRpVW4dgONjVGdmhuq/qFuS1pViZBqQ75aJSk0aSndsLo/4L0L5xNC05RAF+9m5POeR545c+YQQl60CHEuCLHvWM6Fn5vY/xGyD0L27lj78HMT+8JfyHX1p4a5S5r03R783EMAlNoIhw1EIlmo6u9LUQxQavfNKc1d8ZGkLBgb/u4KwB7CYQOFQgTVKofrTtbHjxIOD+fx5s0SZNnEwMfs+xwfcxSLEnZ25pFMxsGYMfQ3LgGoahaVSgg/fxJ0OpP19StBrUbx9m0YijIwVlWj73N2RtBoEOTzFLoug/PfADg/J2i3r0/cbvvJ63WKV6/m8OxZHIyZIwCuy9HpEJye+pCOE8DmpvprgNEtkK6V53F8+UJRrVLY9hyePJkJQA6CYGN5WUcioXUPkDFGFtbWdHz4EIbnBZHLzSOdnhEApTZE0UIoZIEQ59r6ZczCu3fq7QBwboHzcQCD+lUUA+/f+wB7exyattAF+BeE7GNuzvrzLYhGdUSjGjj369aXCUptUDoK4LohmGYUGxvrYMyEIDhQFAvr6xo8j01/CBkzkEzGoesy0ukI0ukINE1BMrmEaFQHY1YfoFSScXg4j3jcXxfFXays6Dg4iKBS4Wg2KVqtKQEkyYBpysjnBThOAI4TQD5PsbMjIxbTulvjAxwcyCgUFEiSBULyEMVdrK1pqFSC+PGDoNUi0wOoahbFooRm0w+q1SgaDYJSSUIioUEUd0GIA8ZMbG9H8Py52t17B6K4i9VVDa7L0G7fAODoiOPszA88PSX4/p3g6IhjdXUAEAqZePQogcePVxAKzRigd3p7Bu02getyLC9nEAgMGo4omhBFc6h8bxHA8xju309BUbYgCC/61TB6f9wSQM/AsvxutrCgg3PrUvu9A4B8XoCuD6rhzgFyuSCePlWxuDgeQBBsxOOZ2wGo1ylevw5iezs8FkAQbCwubuHhwxQ8b8YAPTWbBMUiRyyW6Sbv9Yp9cG6hUIigVmP9G3DmAN++EZTLIh48SCEW2xpq1xbu3fsH1WoQ5+dX4258EQ3r5ISgXGY4PuZDklAuc5ycjI/pdAg+fZoCoFTiI1fxsOp1/33XbI6q0SCo18fHfP5M4XlTNyPab0az0MuXAdi2gExmwqOUMRMbG0vQNBmbm+pMlcnISKV++Sz365kxA5xnwbkxY00cTG46mk07wg0A/vZw+nfH8/8BzKmPw5GnLUoAAAAASUVORK5CYII=" target="_blank" rel="external">【转】DBMS</a>
+        <dd>
+        <dt><a href="http://blog.csdn.net/cnham/article/details/5724934" icon_uri="http://c.csdnimg.cn/public/favicon.ico" icon="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEs0lEQVRYhe2XXYhUZRjHnzOzsx+zszOra17khR83bbTdJCRCNykFFWVliFiCFxJKUokEXkQRIRWBXeiFCYkIKrmiEkQfUFBEhc45Z9V10rbZ1U1XXddZNXdn5sx5318X75mP3Z2ZXcmIooEHhjnvvM///b/P//88R1xp458M+R/AnSx2JDbxNyuOG0rghttxG9pxG2ZViXbzPJTAteI4Epuwz4wBlP4Ubg82asWWJpISIinCiTqRFCEpIWxpwp10iGkAVCwOteNIjKQItjTgRhKcWfgg/SvXcmnr2wzv/JjMgW5GDx9j9PAxMt1HGNm7n6sf7eTiG2/S//waehd23RkDjsQMddLGCREcK07fo09x5f3tjPemULkcmpl/8kNXcJvn4Ei0PgCnIrktDTjSQv+addz6/sepu2qN9hW6UEB73qQooAsFlFdAa81YzynccDt2PQAleqwESRFSnYu58flX5XwqSKYU2vfNd12fBxUAyRz5DEdaZ3AFoThJEdIrVuENXzObBMnQGq012vcnEuErVC6HGh83kc0ZFirWXNu9B1siuBKvDsCRGE5w8vSzq/GzOZO84pTa90ubjp9OMbJ7D+fXbeDc0uX0LniAU3MWcKpjPr3z7iPV9TB9j63gwvpXGNm7n4HV60hKA45VVQUxXCtOUhpIdS2hMHqjlBxAA1qZ1N616wxueJWTs+8NZGZhSwRbmnCkJYhmbGnElnBJpkaG8epX4EgbjhXDaYxy84uvJ5xca41SCq01+UtDpBYv5bgIjrQYswlMxrXK1LpWhVGFEsaQrPgUMyszEDLU9y1/BlWsYKUMEKVM0WlN+ulVnBAxia34FGOZiYPWZMCWCMM7dpUrFyYU3O2fj5sqtoJ6uZu9wJZWnFA7Y87JctJi4QVXcfndD4wLVlJ9twA4EsVtvqdUfEXKAXTeA2Dw5ddIiuCEE38HgBZ6onNRY2OBwekyAM9Da83gpi0kLQs3lLgr9E+6gihupIPcwAWTXKnyFQQ1kDnYTVIaTEesUlx/kYEYjrSQ+fSIkV2hXIRFCapslrNLlhkVVPT4mgkqZDi5C9aUYf/KtSZZ3ivJsMiIBnLpfvqWPRn0eMGWRhyJBh5fjCiOtGBLYzAHhGpe2SQjasVpbuPml98YKea9CY2meBUqnydz6CgDa9eT6nyInuhc3MbZxhsis3GbOjgZn8eZzsX0v/AS/StfxJ2WAYnhShxbIvQuvJ9sX7rshhWNp8hKqdPlPQqZUXLpAbKpX8ie/ZX80GX822P441kAru87ENh0HQZKRRX0g95FXfzxw0/lRJ5XKsxSS56mDWvfR2vN0DvvkZRw1XqpPg9Yhgm3qYNLb20jf35w6uZKoQu+sWzPQ+c9VD6Pzgc27vuoXN74x8bXzUQVmuofNSaiGK6VwJFWkiL0zu/k901buPXtd/i3x9B3MIhppUivWM1xEdwqBlYTQOUUbEvEOKC0cnruIn574jkubt7K1e07GNl3kEz3UTLdR80wuv8Qw7s+4fK2DxncuJlzjzxOT2MHjrTWV0FNJgKJuuGilpsn9PjpxnEzUxaT11XBDIBUeEb9l5FZ5nm4bFS1XPPf9Wr2nwTwJxgLfgbjbBChAAAAAElFTkSuQmCC" target="_blank" rel="external">DBMS</a>
+        <dd>
+    </dd></dt></dd></dt></dd></dt></dd></dt></dd></dt></dd></dt></dd></dt></dd></dt></dd></dt></dd></dt></dd></dt></dd></dt></dd></dt></dd></dt></p></dl></dd></dt></p>
+</dl><p></p>
+
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/HexoBlog/images/avatar.gif"
+               alt="YaFey" />
+          <p class="site-author-name" itemprop="name">YaFey</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/HexoBlog/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/HexoBlog/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/HexoBlog/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yafey" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2011 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YaFey</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/HexoBlog/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/HexoBlog/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/HexoBlog/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt2xvNCW';
+      var conf = '1ac6297c092be17ac65dc04d4c50b1c8';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/HexoBlog/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/HexoBlog/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/HexoBlog/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/HexoBlog/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/HexoBlog/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>
