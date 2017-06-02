@@ -1,0 +1,936 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans,default,default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/HexoBlog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/HexoBlog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/HexoBlog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo,markdown," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/HexoBlog/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="0x00 偶然间的邂逅今天偶然间看到了 Typora ， 看了下他的文档， 很好的符合我的要求， 配合 Hexo 使用， 简直完美。下面是 appinn 的评价：  青小蛙 on 2016.07.16. Typora 是一款 Markdown 编辑器，拥有 Windows、macOS 客户端，可以算作一款 Windows 下难得的好看、优美的客户端。@Appinn  0x01 需求对于 md ，">
+<meta name="keywords" content="Hexo,markdown">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Typora – 终于有一款优美的 Markdown 编辑器[Win&#x2F;macOS]">
+<meta property="og:url" content="https://yafey.github.io/md-best-offline-client/index.html">
+<meta property="og:site_name" content="Y.a.F.e.Y Blog">
+<meta property="og:description" content="0x00 偶然间的邂逅今天偶然间看到了 Typora ， 看了下他的文档， 很好的符合我的要求， 配合 Hexo 使用， 简直完美。下面是 appinn 的评价：  青小蛙 on 2016.07.16. Typora 是一款 Markdown 编辑器，拥有 Windows、macOS 客户端，可以算作一款 Windows 下难得的好看、优美的客户端。@Appinn  0x01 需求对于 md ，">
+<meta property="og:image" content="http://support.typora.io/media/about-image/Snip20161117_2.png">
+<meta property="og:image" content="http://support.typora.io/media/about-image/Snip20161117_6.png">
+<meta property="og:updated_time" content="2017-06-01T17:50:45.870Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Typora – 终于有一款优美的 Markdown 编辑器[Win&#x2F;macOS]">
+<meta name="twitter:description" content="0x00 偶然间的邂逅今天偶然间看到了 Typora ， 看了下他的文档， 很好的符合我的要求， 配合 Hexo 使用， 简直完美。下面是 appinn 的评价：  青小蛙 on 2016.07.16. Typora 是一款 Markdown 编辑器，拥有 Windows、macOS 客户端，可以算作一款 Windows 下难得的好看、优美的客户端。@Appinn  0x01 需求对于 md ，">
+<meta name="twitter:image" content="http://support.typora.io/media/about-image/Snip20161117_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/HexoBlog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true,"Title":"http://example.com/"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '3L117C36K2',
+      apiKey: '8b56d772bc43d9ee2c54cd610a58ba5d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yafey.github.io/md-best-offline-client/"/>
+
+
+
+
+
+  <title>Typora – 终于有一款优美的 Markdown 编辑器[Win/macOS] | Y.a.F.e.Y Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/HexoBlog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Y.a.F.e.Y Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/HexoBlog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/HexoBlog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/HexoBlog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/HexoBlog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/HexoBlog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://yafey.github.io/HexoBlog/md-best-offline-client/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YaFey">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/HexoBlog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Y.a.F.e.Y Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Typora – 终于有一款优美的 Markdown 编辑器[Win/macOS]</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-02T00:34:09+08:00">
+                2017-06-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-02T01:50:45+08:00">
+                2017-06-02
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/HexoBlog/categories/markdown/" itemprop="url" rel="index">
+                    <span itemprop="name">markdown</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/HexoBlog/md-best-offline-client/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="md-best-offline-client/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  726
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="0x00-偶然间的邂逅"><a href="#0x00-偶然间的邂逅" class="headerlink" title="0x00 偶然间的邂逅"></a>0x00 偶然间的邂逅</h1><p>今天偶然间看到了 Typora ， 看了下他的文档， 很好的符合我的要求， 配合 Hexo 使用， 简直完美。下面是 appinn 的评价：</p>
+<blockquote>
+<p><strong>青小蛙</strong> on 2016.07.16.</p>
+<p><a href="http://www.appinn.com/typora/" target="_blank" rel="external">Typora</a> 是一款 Markdown 编辑器，拥有 Windows、macOS 客户端，可以算作一款 Windows 下难得的好看、优美的客户端。<a href="http://www.appinn.com/typora/" target="_blank" rel="external">@Appinn</a></p>
+</blockquote>
+<h1 id="0x01-需求"><a href="#0x01-需求" class="headerlink" title="0x01 需求"></a>0x01 需求</h1><p>对于 md ， 图片一直是个痛点， 看到 Typora 可以支持 <strong><code>Paste images from clipboard</code></strong> , 立刻两眼放光，稍加验证， 完全可以满足需求 。</p>
+<p>而且 ， 提供了一些人性化的 快捷键，可以更优雅的编写 md 文件了 :) 。</p>
+<p>而且 可以直接在 渲染后的效果进行书写，这个效果很棒。<strong>这是一种其他编辑器都没有的体验</strong>。</p>
+<h1 id="0x02-粘贴图片的配置"><a href="#0x02-粘贴图片的配置" class="headerlink" title="0x02 粘贴图片的配置"></a>0x02 粘贴图片的配置</h1><blockquote>
+<p><a href="http://support.typora.io/" target="_blank" rel="external">官方文档 in English</a></p>
+<p><a href="http://support.typora.io/Images/#when-insert-local-image%E2%80%A6" target="_blank" rel="external">Images in Typora</a></p>
+</blockquote>
+<p>如果要达到 从 clipboard 粘贴图片的效果， Typora 要求提供图片的存放路径， 这里稍有不足的地方是 – 需要针对每个文件都进行调整。</p>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><blockquote>
+<p><strong>Paste images from clipboard</strong></p>
+<p>Since Markdown file is only plain text file, users could not insert image data into Markdown file directly, but can insert image reference to file/url.</p>
+<p>Typora support paste image data from clipboard, <strong>after telling typora where to put those images</strong>. Typora would put image data into given folder or server, then insert images referring to that stored file or url</p>
+</blockquote>
+<p>One common scenario is to edit <code>*.md</code> posts in static sites (like Jekyll) using Typora. For example, if the <code>.*md</code> file is put under <code>_posts</code> folder while the image files goes into <code>_media</code> folder, you may want to copy images files into folder <code>_media</code> when you drag/drop or paste images into Markdown file automatically. Here’s how:</p>
+<ol>
+<li>Save your file into some path.  (md 文件必须被保存后)</li>
+<li>Enable <code>Editor</code> → <code>Image Insert</code> → <code>Allow copy images to given folder</code> in preferences panel.</li>
+</ol>
+<p><img src="http://support.typora.io/media/about-image/Snip20161117_2.png" alt="Snip20161117_2"></p>
+<ol>
+<li>Select <code>Edit</code> → <code>Image Tools</code> → <code>When Insert Local Images</code> → <code>Copy Image File to Folder</code> from menubar, pick the target folder.</li>
+</ol>
+<p><img src="http://support.typora.io/media/about-image/Snip20161117_6.png" alt="Snip20161117_6"></p>
+<p>In step 3, a new item <code>typora-copy-images-to: {relative path}</code> will be inserted into the <a href="http://yaml.org/" target="_blank" rel="external">YAML Front Matter</a> block of current document. So you could also manually add <strong>typora-copy-images-to</strong> property in YAML Front Matter to enable this behaviour.</p>
+<p>在 step 3 中，会在文件中添加 YAML 信息， 类似如下效果：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">---</span></div><div class="line"><span class="attr">typora-copy-images-to:</span> <span class="string">&lt;path&gt;</span></div><div class="line"><span class="attr">typora-root-url:</span> <span class="string">&lt;path&gt;</span></div><div class="line"><span class="meta">---</span></div></pre></td></tr></table></figure>
+<p>After that, if you drag &amp; drop <strong>local</strong> images or paste images into Typora, the image file will be copied into the target file and update related <code>src</code>.</p>
+<p>这样操作完成后， 不管是 拖拽 还是 粘贴， 图片都会 被拷贝到 target 目录， 并更新相关的 image 的相对地址。</p>
+<h2 id="结合-Hexo-使用"><a href="#结合-Hexo-使用" class="headerlink" title="结合 Hexo 使用"></a>结合 Hexo 使用</h2><p>参考 之前的文章 <a href="/HexoBlog/2017/06/01/no-pains-with-hexo-local-image/#2-1%E4%BD%BF%E7%94%A8">在 hexo 中无痛使用本地图片</a></p>
+<p>确保 按 2.1 中的配置好后， 做如下修改，以后就可以基本不用考虑 图片的痛点了：</p>
+<ol>
+<li>修改 <code>scaffolds</code> 下面的 <code>post.md</code> 和 <code>draft.md</code> ， 添加如下 YAML ：</li>
+</ol>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">typora-copy-images-to: &#123;&#123; title &#125;&#125;</div><div class="line">typora-root-url: &#123;&#123; title &#125;&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>以后用 <code>hexo new &lt;post&gt;</code> 方式生成的文件，就可以直接贴图片了，<strong>这里稍微要注意的地方是：</strong><ul>
+<li>因为 <code>hexo-asset-image</code>会忽略 以<code>/</code>开头的图片，所以要手动的把 <code>![123](/123.jpg)</code> 路径中的 <code>/</code>去掉。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果我的文章让你有收获，请支持一下！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/HexoBlog/images/weixinPay.jpg" alt="YaFey WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/HexoBlog/images/alipay.jpg" alt="YaFey Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/HexoBlog/tags/Hexo/" rel="tag"># Hexo</a>
+          
+            <a href="/HexoBlog/tags/markdown/" rel="tag"># markdown</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/HexoBlog/no-pains-with-hexo-local-image/" rel="next" title="在 hexo 中无痛使用本地图片">
+                <i class="fa fa-chevron-left"></i> 在 hexo 中无痛使用本地图片
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/HexoBlog/CSS-in-JS-brief/" rel="prev" title="CSS in JS 简介 「阮一峰」">
+                CSS in JS 简介 「阮一峰」 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/HexoBlog/images/avatar.gif"
+               alt="YaFey" />
+          <p class="site-author-name" itemprop="name">YaFey</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/HexoBlog/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/HexoBlog/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/HexoBlog/tags/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yafey" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-偶然间的邂逅"><span class="nav-number">1.</span> <span class="nav-text">0x00 偶然间的邂逅</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-需求"><span class="nav-number">2.</span> <span class="nav-text">0x01 需求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-粘贴图片的配置"><span class="nav-number">3.</span> <span class="nav-text">0x02 粘贴图片的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作步骤"><span class="nav-number">3.1.</span> <span class="nav-text">操作步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结合-Hexo-使用"><span class="nav-number">3.2.</span> <span class="nav-text">结合 Hexo 使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YaFey</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/HexoBlog/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/HexoBlog/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/HexoBlog/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/HexoBlog/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/HexoBlog/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt2xvNCW';
+      var conf = '1ac6297c092be17ac65dc04d4c50b1c8';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/HexoBlog/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/HexoBlog/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/HexoBlog/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/HexoBlog/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/HexoBlog/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>

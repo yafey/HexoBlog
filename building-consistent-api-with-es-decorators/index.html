@@ -1,0 +1,943 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans,default,default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/HexoBlog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/HexoBlog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/HexoBlog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="decorator,es7," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/HexoBlog/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="使用 ES decorators 构建一致性 API作者: 法海 发表于: 2017-04-27  重用和一致性是程序设计中经久不衰的两个课题。在最新的 ES Proposal 中，「decorators 语法」为此带来了一定的便利，并且，很适合应用于大型的类库中。  装饰模式提到 decorator 大家都不会陌生，即「装饰模式」—— 我们可以在「不侵入原有代码」的情况下，为代码增加一些「额外的">
+<meta name="keywords" content="decorator,es7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 ES decorators 构建一致性 API「淘宝FED前端团队」">
+<meta property="og:url" content="https://yafey.github.io/building-consistent-api-with-es-decorators/index.html">
+<meta property="og:site_name" content="Y.a.F.e.Y Blog">
+<meta property="og:description" content="使用 ES decorators 构建一致性 API作者: 法海 发表于: 2017-04-27  重用和一致性是程序设计中经久不衰的两个课题。在最新的 ES Proposal 中，「decorators 语法」为此带来了一定的便利，并且，很适合应用于大型的类库中。  装饰模式提到 decorator 大家都不会陌生，即「装饰模式」—— 我们可以在「不侵入原有代码」的情况下，为代码增加一些「额外的">
+<meta property="og:image" content="https://yafey.github.io/HexoBlog/building-consistent-api-with-es-decorators/1496413726350.png">
+<meta property="og:image" content="https://yafey.github.io/HexoBlog/building-consistent-api-with-es-decorators/1496413764730.png">
+<meta property="og:image" content="https://yafey.github.io/HexoBlog/building-consistent-api-with-es-decorators/1496413785396.png">
+<meta property="og:updated_time" content="2017-06-02T14:39:32.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 ES decorators 构建一致性 API「淘宝FED前端团队」">
+<meta name="twitter:description" content="使用 ES decorators 构建一致性 API作者: 法海 发表于: 2017-04-27  重用和一致性是程序设计中经久不衰的两个课题。在最新的 ES Proposal 中，「decorators 语法」为此带来了一定的便利，并且，很适合应用于大型的类库中。  装饰模式提到 decorator 大家都不会陌生，即「装饰模式」—— 我们可以在「不侵入原有代码」的情况下，为代码增加一些「额外的">
+<meta name="twitter:image" content="https://yafey.github.io/HexoBlog/building-consistent-api-with-es-decorators/1496413726350.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/HexoBlog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true,"Title":"http://example.com/"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '3L117C36K2',
+      apiKey: '8b56d772bc43d9ee2c54cd610a58ba5d',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yafey.github.io/building-consistent-api-with-es-decorators/"/>
+
+
+
+
+
+  <title>使用 ES decorators 构建一致性 API「淘宝FED前端团队」 | Y.a.F.e.Y Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/HexoBlog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Y.a.F.e.Y Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/HexoBlog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/HexoBlog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/HexoBlog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/HexoBlog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/HexoBlog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://yafey.github.io/HexoBlog/building-consistent-api-with-es-decorators/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YaFey">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/HexoBlog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Y.a.F.e.Y Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用 ES decorators 构建一致性 API「淘宝FED前端团队」</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-02T22:25:20+08:00">
+                2017-06-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-02T22:39:32+08:00">
+                2017-06-02
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/HexoBlog/categories/Web开发/" itemprop="url" rel="index">
+                    <span itemprop="name">Web开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/HexoBlog/building-consistent-api-with-es-decorators/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="building-consistent-api-with-es-decorators/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1,374
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="使用-ES-decorators-构建一致性-API"><a href="#使用-ES-decorators-构建一致性-API" class="headerlink" title="使用 ES decorators 构建一致性 API"></a>使用 ES decorators 构建一致性 API</h1><p>作者: 法海 发表于: <a href="http://taobaofed.org/blog/2017/04/27/building-consistent-api-with-es-decorators/" target="_blank" rel="external">2017-04-27</a></p>
+<p><img src="/HexoBlog/building-consistent-api-with-es-decorators/1496413726350.png" alt="1496413726350"></p>
+<p>重用和一致性是程序设计中经久不衰的两个课题。在最新的 ES Proposal 中，「decorators 语法」为此带来了一定的便利，并且，很适合应用于大型的类库中。</p>
+<hr>
+<h2 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h2><p>提到 decorator 大家都不会陌生，即「装饰模式」—— 我们可以在「不侵入原有代码」的情况下，为代码增加一些「额外的功能」。</p>
+<p>所谓「额外的功能」一般都比较独立，不和原有逻辑耦合，只是做一层包装。你也可以把它看成「包装模式」。形如：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 旧方法</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 包装后的新方法</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcWrapped</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">// 有的没的</span></div><div class="line">  doSomethingBefore();</div><div class="line"></div><div class="line">  <span class="comment">// 旧方法的过程本身并不变化</span></div><div class="line">  func();</div><div class="line"></div><div class="line">  <span class="comment">// 这啊那的</span></div><div class="line">  doSomethingAfter();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样看来，有一些场景特别适用这个模式，比如：</p>
+<ul>
+<li>记录方法的开始执行和结束执行。</li>
+<li>为运算过程提供额外的缓存能力。</li>
+<li>标记方法为 deprecated。</li>
+<li>等等。</li>
+</ul>
+<h3 id="编写一个装饰器"><a href="#编写一个装饰器" class="headerlink" title="编写一个装饰器"></a>编写一个装饰器</h3><p>如果有好多方法都想包上这种「额外的功能」，那么我们不会一个个地去改写，而是考虑抽出一个「装饰器」—— 它能够接受原方法，然后生成包装后的方法。比如，我们想记录所有方法的运行时间：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">performanceTimingDecorator</span><span class="params">(func)</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">// 返回包装后的新方法</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">(<span class="rest_arg">...args</span>)</span> </span>&#123;</div><div class="line">    <span class="keyword">const</span> start = Date.now();</div><div class="line">    func(...args);</div><div class="line">    <span class="keyword">const</span> end = Date.now();</div><div class="line">    <span class="keyword">const</span> t = end - start;</div><div class="line"></div><div class="line">    console.log(`$&#123;func.name&#125; performed $&#123;t&#125;ms.`);</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> funcWrapped = performanceTimingDecorator(func);</div><div class="line"></div><div class="line"><span class="comment">// func performed 2ms.</span></div><div class="line">funcWrapped();</div></pre></td></tr></table></figure>
+<h2 id="使用-ES-decorators"><a href="#使用-ES-decorators" class="headerlink" title="使用 ES decorators"></a>使用 ES decorators</h2><p>如果一个系统内需要大量运用装饰器，那么上述的写法可读性还有待提高。ES decorators 解决了这个问题，这是一个新的语法（语法糖）：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义 decorator</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">performanceTiming</span><span class="params">(<span class="rest_arg">...args</span>)</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">// 返回包装后的方法</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">(target, key, descriptor)</span> </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">// 使用这种语法修饰方法 func</span></div><div class="line">  @performanceTiming</div><div class="line">  func() &#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>新的 decorator 语法 <code>@xxx</code> 的形式非常类似 Java Annotation，不过后者作为静态语言，其 Annotation 的实现机制以及使用场景和 ES decorators 都有区别，这是一个题外话。事实上，ES decorators 完全借鉴自 Python 的 decorators。</p>
+<p>同时，聪明的你应该发现，相比手写装饰器，新的语法中其实「该写的东西一个都没少」。那这个 decorators 语法有什么意义呢？</p>
+<p>在我看来，这种语法糖对 decorators 的「定义」和「调用」都做了收敛，带来了「形式美感」。说人话，可读性更好。</p>
+<ol>
+<li>在 decorators 定义时，约束了装饰器的输入（固定的几个相关参数）和输出（返回一个 function），使所有装饰器风格得到收敛。</li>
+<li>在 decorators 调用时，以无侵入的语法「修饰」类或方法，可维护性和可读性都提升很多。</li>
+</ol>
+<p>这两个优势，让我想到 ES decorators 的一个重要使用场景，便是应用于构架一致性 API。</p>
+<h2 id="构架一致性-API"><a href="#构架一致性-API" class="headerlink" title="构架一致性 API"></a>构架一致性 API</h2><p>对于多人开发的大型类库来说，「一致性」是很重要同时也很难执行的一个课题。这里的「一致性」包括：</p>
+<ol>
+<li>各模块提供一致的标准公用功能。</li>
+<li>公用功能的实现和调用方式也保持一致。</li>
+<li>整体 API 的风格一致。</li>
+</ol>
+<p>其中 1、2 两点可以通过引入 ES decorators 机制来更好地达到。</p>
+<h3 id="实践演示"><a href="#实践演示" class="headerlink" title="实践演示"></a>实践演示</h3><p>先封装好部分 decorators（可参见 <code>@ali/universal-decorator</code> 这个包），这里选取两个装饰器：</p>
+<ul>
+<li><code>@deprecated</code> - 用于修饰类的方法，如果方法被调用，则在 console 中提示此方法已经过时，以便开发者转而调用其他方法。</li>
+<li><code>@moduleLevel</code> - 这是 Rax 体系下模块类的一个静态成员标准字段，可取值为几个有限的枚举，此装饰器对此做了约束。</li>
+</ul>
+<p>接下来具体地应用到库中。</p>
+<p>例如 <code>@ali/universal-tracker</code> 中，<code>report()</code> 方法已经迁移到了 <code>@ali/universal-goldlog</code>，原方法已经废弃，则可以写作：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;deprecated&#125; from <span class="string">'@ali/universal-decorator'</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tracker</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="meta">@deprecated(<span class="meta-string">'This method is moved to universal-goldlog.'</span>, &#123;</span></div><div class="line">    url: <span class="meta-string">'http://web.npm.alibaba-inc.com/package/@ali/universal-goldlog'</span></div><div class="line">  &#125;)</div><div class="line">  report() &#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后在调用 <code>report()</code> 后则会提示：</p>
+<p><img src="/HexoBlog/building-consistent-api-with-es-decorators/1496413764730.png" alt="1496413764730"></p>
+<p>这样，在相关的所有库中都引入类似的装饰器，从而保证 API 表达上的一致，并且这些公共逻辑遵循一致的实现。</p>
+<p>另外还有一个例子，可以用来对类的字段做约束。以大量基于 Rax 的页面模块为例，这些模块 class 需要声明一个静态属性 <code>moduleLevel</code> 是 app 级别还是 page 级别，以便于框架将其渲染到对应的容器中。但是静态成员的赋值不够清晰明朗，也不能对枚举值做约束。使用 decorators 来改写则：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;moduleLevel&#125; from <span class="string">'@ali/universal-decorator'</span>;</div><div class="line"></div><div class="line"><span class="meta">@moduleLevel(<span class="meta-string">'page'</span>)</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyModule1</span> </span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="meta">@moduleLevel(<span class="meta-string">'other'</span>)</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyModule2</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<p>moduleLevel 这个 decorator 将为类赋上一个名为 <code>moduleLevel</code> 的静态成员，并且会对传入值作判断，如果入参不是 <code>&#39;page&#39;</code> 或 <code>&#39;app&#39;</code>，则发出警告：</p>
+<p><img src="/HexoBlog/building-consistent-api-with-es-decorators/1496413785396.png" alt="1496413785396"></p>
+<p>最后，由于使用了 ES decorators 语法的代码，类似于一种声明式的标记，所以更利于我们对这些代码作静态分析，比如进一步的提前校验，或是条件编译等等。这部分更多的想法和思路，有待发掘。</p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><ol>
+<li><a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841" target="_blank" rel="external">Exploring EcmaScript Decorators</a></li>
+</ol>
+<hr>
+<p>题图：<a href="http://maxpixel.freegreatpicture.com/Festival-The-Christmas-Tree-Decorate-A-Christmas-Tree-1081320" target="_blank" rel="external">一棵被装饰得五光十色的圣诞树</a>。很多涉及到 decorator 的文章动不动就拿圣诞树来举例子，俨然 Christmas tree 是 decorate 的固定宾语。🎄</p>
+<hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果我的文章让你有收获，请支持一下！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/HexoBlog/images/weixinPay.jpg" alt="YaFey WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/HexoBlog/images/alipay.jpg" alt="YaFey Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/HexoBlog/tags/decorator/" rel="tag"># decorator</a>
+          
+            <a href="/HexoBlog/tags/es7/" rel="tag"># es7</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/HexoBlog/es7-decorator/" rel="next" title="ES7 Decorator 装饰者模式「淘宝FED前端团队」">
+                <i class="fa fa-chevron-left"></i> ES7 Decorator 装饰者模式「淘宝FED前端团队」
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/HexoBlog/images/avatar.gif"
+               alt="YaFey" />
+          <p class="site-author-name" itemprop="name">YaFey</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/HexoBlog/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/HexoBlog/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/HexoBlog/tags/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yafey" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-ES-decorators-构建一致性-API"><span class="nav-number">1.</span> <span class="nav-text">使用 ES decorators 构建一致性 API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰模式"><span class="nav-number">1.1.</span> <span class="nav-text">装饰模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编写一个装饰器"><span class="nav-number">1.1.1.</span> <span class="nav-text">编写一个装饰器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-ES-decorators"><span class="nav-number">1.2.</span> <span class="nav-text">使用 ES decorators</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构架一致性-API"><span class="nav-number">1.3.</span> <span class="nav-text">构架一致性 API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实践演示"><span class="nav-number">1.3.1.</span> <span class="nav-text">实践演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用"><span class="nav-number">1.4.</span> <span class="nav-text">引用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YaFey</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/HexoBlog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/HexoBlog/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/HexoBlog/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/HexoBlog/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/HexoBlog/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/HexoBlog/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cyt2xvNCW';
+      var conf = '1ac6297c092be17ac65dc04d4c50b1c8';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/HexoBlog/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/HexoBlog/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/HexoBlog/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/HexoBlog/js/src/js.cookie.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/HexoBlog/js/src/scroll-cookie.js?v=5.1.1"></script>
+
+
+  
+
+</body>
+</html>
