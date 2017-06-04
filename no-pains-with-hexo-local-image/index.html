@@ -11,6 +11,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
 
 
 
@@ -97,12 +112,12 @@
 <meta property="og:url" content="https://yafey.github.io/no-pains-with-hexo-local-image/index.html">
 <meta property="og:site_name" content="Y.a.F.e.Y Blog">
 <meta property="og:description" content="原文：http://www.tuicool.com/articles/umEBVfIhttp://codefalling.com/2015/12/19/no-pains-with-hexo-local-image/ 已失效  1 起因在 hexo 中使用本地图片是件非常让人纠结的事情，在 markdown 里的图片地址似乎永远无法和最后生成的网页保持一致。 这些问题使得我一度不愿意使用本地图片而">
-<meta property="og:image" content="https://yafey.github.io/HexoBlog/2017/06/01/no-pains-with-hexo-local-image/1496330644115.png">
+<meta property="og:image" content="https://yafey.github.io/HexoBlog/no-pains-with-hexo-local-image/1496330644115.png">
 <meta property="og:updated_time" content="2017-06-02T11:53:51.485Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 hexo 中无痛使用本地图片">
 <meta name="twitter:description" content="原文：http://www.tuicool.com/articles/umEBVfIhttp://codefalling.com/2015/12/19/no-pains-with-hexo-local-image/ 已失效  1 起因在 hexo 中使用本地图片是件非常让人纠结的事情，在 markdown 里的图片地址似乎永远无法和最后生成的网页保持一致。 这些问题使得我一度不愿意使用本地图片而">
-<meta name="twitter:image" content="https://yafey.github.io/HexoBlog/2017/06/01/no-pains-with-hexo-local-image/1496330644115.png">
+<meta name="twitter:image" content="https://yafey.github.io/HexoBlog/no-pains-with-hexo-local-image/1496330644115.png">
 
 
 
@@ -479,7 +494,7 @@
 <h3 id="2-1-1-兼容性问题？"><a href="#2-1-1-兼容性问题？" class="headerlink" title="2.1.1 兼容性问题？"></a>2.1.1 兼容性问题？</h3><p>在本地使用过程中发现，在 使用了 <code>hexo-asset-image</code> 之后， 如果更新了文件， 预览的时候 文件就无法正常显示， 一定要 重新 <code>hexo g</code> ， 然后 <code>hexo s -p 80</code> 才能预览， 这个估计值得 enhance ， 可以去 提个 issue 。</p>
 <h2 id="2-2-第一次-raise-a-pull-request-to-an-open-source-project"><a href="#2-2-第一次-raise-a-pull-request-to-an-open-source-project" class="headerlink" title="2.2 第一次 raise a pull request to an open source project"></a>2.2 第一次 raise a pull request to an open source project</h2><p>因为我的 Hexo 现在是放在 xxx.github.io/HexoBlog 上的， hexo-asset-image 生成的 link 原先是 不带 HexoBlog 的，竟然被我稀里糊涂的改掉了， 那就 raise pull request  给 作者吧， 这算是我第一次给 open source 提 pull request ， 以后也可以说是 给 open source 做过贡献了 :)  。</p>
 <p>pull request 链接 ： <a href="https://github.com/CodeFalling/hexo-asset-image/pull/25/files" target="_blank" rel="external">https://github.com/CodeFalling/hexo-asset-image/pull/25/files</a></p>
-<p><img src="/HexoBlog/2017/06/01/no-pains-with-hexo-local-image/1496330644115.png" alt="附上截图"></p>
+<p><img src="/HexoBlog/no-pains-with-hexo-local-image/1496330644115.png" alt="附上截图"></p>
 
       
     </div>
@@ -909,6 +924,9 @@
 
 
   
+
+  <script type="text/javascript" src="/HexoBlog/js/src/love.js"></script>
+
 
 </body>
 </html>

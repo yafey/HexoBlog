@@ -11,6 +11,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
 
 
 
@@ -97,13 +112,13 @@
 <meta property="og:url" content="https://yafey.github.io/node-version-control-nvm-or-n/index.html">
 <meta property="og:site_name" content="Y.a.F.e.Y Blog">
 <meta property="og:description" content="如何选择 nvm 还是 n ? 管理 node 版本，选择 nvm 还是 n？@「淘宝前端团队(FED)」  nvm 和 n 的差异还是比较大的，具体体现在：  安装简易度。nvm 安装起来显然是要麻烦不少；n 这种安装方式更符合 node 的惯性思维。见仁见智吧。 系统支持。注意， nvm 不支持 Windows   n 不支持 windows。 对全局模块的管理。n 对全局模块毫无作为，因此有">
-<meta property="og:image" content="https://yafey.github.io/HexoBlog/2017/06/01/node-version-control-nvm-or-n/1496322408836.png">
-<meta property="og:image" content="https://yafey.github.io/HexoBlog/2017/06/01/node-version-control-nvm-or-n/1496322695012.png">
+<meta property="og:image" content="https://yafey.github.io/HexoBlog/node-version-control-nvm-or-n/1496322408836.png">
+<meta property="og:image" content="https://yafey.github.io/HexoBlog/node-version-control-nvm-or-n/1496322695012.png">
 <meta property="og:updated_time" content="2017-06-01T15:47:24.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nvm or n">
 <meta name="twitter:description" content="如何选择 nvm 还是 n ? 管理 node 版本，选择 nvm 还是 n？@「淘宝前端团队(FED)」  nvm 和 n 的差异还是比较大的，具体体现在：  安装简易度。nvm 安装起来显然是要麻烦不少；n 这种安装方式更符合 node 的惯性思维。见仁见智吧。 系统支持。注意， nvm 不支持 Windows   n 不支持 windows。 对全局模块的管理。n 对全局模块毫无作为，因此有">
-<meta name="twitter:image" content="https://yafey.github.io/HexoBlog/2017/06/01/node-version-control-nvm-or-n/1496322408836.png">
+<meta name="twitter:image" content="https://yafey.github.io/HexoBlog/node-version-control-nvm-or-n/1496322408836.png">
 
 
 
@@ -472,7 +487,7 @@
 <li>如果你是一个轻量级的用户，不需要担心兼容性的问题，更关心 node 安装和使用上的体验，那么选择 n。</li>
 </ol>
 <p>你如果要问，楼主最终选用了谁？我会说，我选择了更流行的那一个。</p>
-<p><img src="/HexoBlog/2017/06/01/node-version-control-nvm-or-n/1496322408836.png" alt="1496322408836"></p>
+<p><img src="/HexoBlog/node-version-control-nvm-or-n/1496322408836.png" alt="1496322408836"></p>
 <h1 id="升级node-js和npm-注"><a href="#升级node-js和npm-注" class="headerlink" title="升级node.js和npm [注]"></a>升级node.js和npm [注]</h1><blockquote>
 <blockquote>
 <p>参考：<a href="https://segmentfault.com/a/1190000009025883" target="_blank" rel="external">https://segmentfault.com/a/1190000009025883</a></p>
@@ -484,7 +499,7 @@
 <p>更新到最新的稳定版只需要在命令行中打下如下代码：</p>
 <figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 第一步，安装 <span class="built_in">n</span> (<span class="built_in">n</span> 模块不支持 windows 系统)</div><div class="line">npm install -g <span class="built_in">n</span></div><div class="line"></div><div class="line"># 第二步，升级 node 到最新稳定版本</div><div class="line"><span class="built_in">n</span> stable</div></pre></td></tr></table></figure>
 <p>如需最新版本则用<code>n latest</code></p>
-<p><img src="/HexoBlog/2017/06/01/node-version-control-nvm-or-n/1496322695012.png" alt="1496322695012"></p>
+<p><img src="/HexoBlog/node-version-control-nvm-or-n/1496322695012.png" alt="1496322695012"></p>
 <p>当然，n后面也可以跟具体的版本号：<code>n v6.2.0</code> 或 <code>n 6.2.0</code></p>
 <p>node.js升级就是这么简单。</p>
 <h2 id="升级npm"><a href="#升级npm" class="headerlink" title="升级npm"></a>升级npm</h2><p>npm升级就更简单了，只需要在终端中输入：</p>
@@ -929,6 +944,9 @@
 
 
   
+
+  <script type="text/javascript" src="/HexoBlog/js/src/love.js"></script>
+
 
 </body>
 </html>
